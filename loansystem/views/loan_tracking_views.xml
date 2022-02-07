@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Loan Type Form -->
+    <record id="loan_type_tree" model="ir.ui.view">
+        <field name="name">Loan Type</field>
+        <field name="model">loan.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="loan_type_form" model="ir.ui.view">
+        <field name="name">Loan Type</field>
+        <field name="model">loan.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Documents upload form -->
+    <record id="documents_upload_tree" model="ir.ui.view">
+        <field name="name">Documents Upload</field>
+        <field name="model">documents.upload</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="adhar_card"/>
+                <field name="pan_card"/>
+                <field name="votersid_card"/>
+                <field name="Driving_license"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="documents_upload_form" model="ir.ui.view">
+        <field name="name">Documents Upload</field>
+        <field name="model">documents.upload</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <!-- <group>
+                            <field name="document_ids"/>
+                        </group> -->
+                        <group>
+                            <field name="adhar_card"/>
+                            <field name="pan_card"/>
+                        </group>
+                         <group>
+                            <field name="votersid_card"/>
+                            <field name="Driving_license"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+   <!-- Loan Request Form -->
+    <record id="applicany_apply_tree" model="ir.ui.view">
+        <field name="name">Applicant Apply</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="loan_type_id"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="loan_installment_form" model="ir.ui.view">
+        <field name="name"></field>
+        <field name="model">estate.property</field>
+        <field name="inherit_id" ref="estate.estate_property_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='date_deadline']" position="after">
+                <field name="bankname"/>
+                <field name="bankinterest"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Kanban view -->
+    <record id="estate_property_kanban" model="ir.ui.view">
+        <field name="name">Applicant Apply Kanban</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="state"/>
+                <field name="id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <!-- <t t-if="record.image.raw_value">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('applicant.apply','image',record.id.raw_value)"/>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="_s +'/base/static/img/avatar_grey.png'" alt="Avatar"/>
+                                </div>
+                            </t> -->
+                            <div class="o_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <ul>
+                                    <li><field name="loan_type_id"/></li>
+                                    <li><field name="amount"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- Calender view -->
+     <record id="applicant_apply_calendar" model="ir.ui.view">
+        <field name="name">Applicant Apply Calendar</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <calendar string="Apply Date" date_start="apply_date" color="id">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Graph view -->
+     <record id="applicant_apply_graph" model="ir.ui.view">
+        <field name="name">Applicant Apply Graph</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <graph string="Loan">
+                <field name="state"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot view -->
+    <record id="applicant_apply_pivot" model="ir.ui.view">
+        <field name="name">Applicant Apply Pivot</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <pivot string="Loan type">
+                <field name="name" type="row"/>
+                <field name="loan_type_id" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Gantt View -->
+    <record id="applicant_apply_gantt" model="ir.ui.view">
+        <field name="name">Applicant Apply Gantt</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <gantt string="Date duration" date_start="duration"/>
+        </field>
+    </record>
+
+    <record id="applicant_apply_form" model="ir.ui.view">
+        <field name="name">Applicant Apply</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_apply" type="object" string="Apply" attrs="{'invisible': [('state','=', 'apply')]}" class="oe_highlight"/>
+                    <button name="action_approved" type="object" string="Approved" class="oe_highlight"/>
+                    <button name="action_cancel" states="draft,apply,approved," string="Cancel" type="object" />
+                    <button name="action_draft" states="cancel" string="Draft" type="object" />
+                    <button name="action_done" type="object" string="Lock" states="approved"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,Apply,approved,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Name"/>
+                            <field name="mobile_no" string="Mobile No."/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="loan_type_id" widget="many2one_tags"/>
+                        </group>
+                        <group>
+                            <field name="apply_date"/>
+                            <field name="approve_date"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar"/>
+                        </group>
+                    </group>
+                    <notebook>  
+                        <page string="General">
+                            <group>
+                                <group>
+                                    <field name="currency_id"/>
+                                    <field name="amount"/>
+                                </group>
+                                <group>   
+                                    <field name="is_interest_payable"/>    
+                                    <field name="interest_mode"/>
+                                </group>
+                                <group>   
+                                    <field name="duration"/>    
+                                    <field name="rate"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Proof">
+                            <field name="document_ids">
+                                <tree>
+                                    <field name="adhar_card" string="Adhar Card"/>
+                                    <field name="pan_card"/>
+                                    <field name="votersid_card"/>
+                                    <field name="Driving_license"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="applicant_apply_search" model="ir.ui.view">
+        <field name="name">Applicant Apply Search</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="amount"/>
+                <field name="state"/>
+                <field name="loan_type_id"/>
+                <filter name="amount" domain="[('amount', '>', 300000)]"/>
+                <filter name="Currency" domain="[('currency_id', '=', 'INR')]"/>
+                <!-- <filter string="New" name="state" domain="[('state','=' ,'new')]"/>  -->
+                <group expand="1" string="Group By">
+                    <filter string="Losn Type" name="loan_type_id" context="{'group_by': 'loan_type_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+ 
+
+</odoo>

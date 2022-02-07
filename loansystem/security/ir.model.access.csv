@@ -1,0 +1,6 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_loan_type,access_loan_type,model_loan_type,base.group_user,1,1,1,1
+access_documents_upload,access_documents_upload,model_documents_upload,base.group_user,1,1,1,1
+access_applicant_apply,access_applicant_apply,model_applicant_apply,base.group_user,1,1,1,1
+access_loan_wizard,access_loan_wizard,model_loan_wizard,base.group_user,1,1,1,1
+

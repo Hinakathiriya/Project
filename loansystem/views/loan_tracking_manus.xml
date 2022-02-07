@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="real_loan_tracking_system_home_action" model="ir.actions.act_window">
+        <field name="name">Loan type</field>
+        <field name="res_model">loan.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+     <record id="real_loan_tracking_system_documents_upload_action" model="ir.actions.act_window">
+        <field name="name">Documents Upload</field>
+        <field name="res_model">documents.upload</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="real_loan_tracking_system_applicant_apply_action" model="ir.actions.act_window">
+        <field name="name">Loan Request</field>
+        <field name="res_model">applicant.apply</field>
+        <field name="view_mode">tree,form,kanban,calendar,graph,pivot,gantt</field>
+        <field name="context">{'search_default_state':'new'}</field>
+    </record>
+
+
+    <menuitem id="menu_loan_tracking_system_root" name="Loan Tracking System">
+        <menuitem id="menu_loan_tracking_loan_type" name="Loan Type">
+            <menuitem id="menu_loan_tracking_system_action" action="real_loan_tracking_system_home_action"/>
+        </menuitem>
+    </menuitem>
+
+    <menuitem id="menu_loan_tracking_system_root" name="Loan Tracking System">
+        <menuitem id="menu_loan_tracking_client_info" name="Loan Request">
+            <menuitem id="menu_loan_tracking_system_applicant_apply_action" action="real_loan_tracking_system_applicant_apply_action"/>
+
+        </menuitem>
+    </menuitem>
+
+    <menuitem id="menu_loan_tracking_system_root" name="Loan Tracking System">
+        <menuitem id="menu_loan_tracking_documents_upload" name="Documents upload">
+            <menuitem id="menu_loan_tracking_system_documents_upload_action" action="real_loan_tracking_system_documents_upload_action"/>
+        </menuitem>
+    </menuitem>
+
+</odoo>

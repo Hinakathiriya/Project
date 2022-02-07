@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_loan_wizard" model="ir.ui.view">
+            <field name="name">Loan Wizard</field>
+            <field name="model">loan.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                        <field name="discription"/>
+                    </group>
+                    <footer>
+                        <button type="object" class="btn-primary" name="action_make_loan" string="Make Loan Type"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field> 
+        </record>
+
+        <record id="action_view_loan_wizard" model="ir.actions.act_window">
+            <field name="name">Make Loan Type</field>
+            <field name="res_model">loan.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="loansystem.model_applicant_apply"/>
+            <field name="binding_view_types">list</field>
+        </record>
+    </data>
+</odoo>
