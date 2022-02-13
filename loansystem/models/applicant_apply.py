@@ -12,34 +12,44 @@ class ApplicantApply(models.Model):
     # _sql_constraints = [('Positiv Amount', 'check(amount>0)', 'Enter positive value')]
 
 
-    @api.depends('apply_date', 'approve_date')
-    def _get_duration(self):
+    # @api.depends('amount', 'rate')
+    # def _get_duration(self):
+    #     for record in self:
+    #         if record.approve_date and record.apply_date:
+    #             diff = record.amount - record.rate
+    #             record.duration = diff.days
+    #         else:
+    #             record.duration = 1
+
+    # def _set_duration(self):
+    #     for record in self:
+    #         record.approve_date = record.apply_date + relativedelta(days=record.duration)
+
+    @api.depends('amount', 'rate')
+    def _compute_amount(self):
         for record in self:
-            if record.approve_date and record.apply_date:
-                diff = record.approve_date - record.apply_date
-                record.duration = diff.days
-            else:
-                record.duration = 1
+            record.total= record.amount * record.rate/100
+            # record.al_total = record.total + record.amount
+            # record.al_total = record.amount    
 
-    def _set_duration(self):
+    def _inverse_amount(self):
         for record in self:
-            record.approve_date = record.apply_date + relativedelta(days=record.duration)
-
-
+            record.amount = record.rate = record.total / 2
 
     name = fields.Char(string="Name", default="Unknown", required=True)
     mobile_no = fields.Integer()
     email = fields.Char()
-    loan_type_id = fields.Many2one('loan.type',string="Loan Type",required=True)
+    loan_type_id = fields.Many2one('loan.type',string="Loan Type",required=False)
     apply_date = fields.Date()
     approve_date = fields.Date()
     image = fields.Image()
     currency_id = fields.Many2one('res.currency')
-    amount = fields.Float()
+    amount = fields.Monetary(currency_field='currency_id')
+    # amount = fields.Float()
     is_interest_payable = fields.Boolean()
-    interest_mode = fields.Char(default='Flat',readonly=True)#selection
-    duration = fields.Integer(compute=_get_duration, inverse=_set_duration)
-    rate = fields.Integer()
+    interest_mode = fields.Char(default='Flat',readonly=True)
+    duration = fields.Integer()
+    rate = fields.Integer(default=10,readonly=True)
     state = fields.Selection([
             ('new','New'),
             ('apply','Apply'),
@@ -49,8 +59,8 @@ class ApplicantApply(models.Model):
             ('done','Done')
         ],default='new')
     document_ids = fields.One2many('documents.upload','applicant_apply_id')
-    
-
+    total = fields.Float(compute=_compute_amount,inverse=_inverse_amount)
+    currency_id = fields.Many2one('res.currency', string='Currency', store=True, readonly=False)
 
     @api.constrains('amount')
     def _check_amount(self):
@@ -58,15 +68,6 @@ class ApplicantApply(models.Model):
             if record.amount > 500000:
                 raise ValidationError("Amount cannot be bigger than 500000")
 
-    # @api.onchange('')
-    # def _onchange_garden(self):
-    #     for record in self:
-    #         if record.garden:
-    #             record.rate = 10
-    #             record.is_interest_payable = 'true'
-    #         else:
-    #             record.rate = 0
-    #             record.is_interest_payable = None
 
     def action_apply(self):
         for record in self:

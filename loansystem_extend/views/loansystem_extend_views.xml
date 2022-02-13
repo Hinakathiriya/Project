@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>   
+
+       
+        <!-- <record id="applicant_form" model="ir.ui.view">
+            <field name="name">Applicant Apply Inherited</field>
+            <field name="model">applicant.apply</field>
+            <field name="inherit_id" ref="loansystem.applicant_apply_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='documents_upload']" position="attributes">
+                    <attribute name="string">Loan Installment</attribute>
+                </xpath>
+                <xpath expr="//page[@name='documents_upload']/group/field[@name='document_ids']" position="attributes">
+                    <attribute name="nolabel">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='documents_upload']" position="after">
+                    <page name="loan_installment" string="Loan Installment">
+                        <field name="emi"/>
+                    </page>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="loan_installment_tree" model="ir.ui.view">
+            <field name="name">Loan Installment Inherited</field>
+            <field name="model">loan.installment</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="loan_installment_form" model="ir.ui.view">
+            <field name="name">Loan Installment Inherited</field>
+            <field name="model">loan.installment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="loan_installment" string="Loan Installment">
+                              <group>
+                                  <field name="interest_amount" string="Interest Amount"/>
+                                  <field name="emi"/>
+                                  <field name="total"/>
+                              </group>
+                            </page>
+                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

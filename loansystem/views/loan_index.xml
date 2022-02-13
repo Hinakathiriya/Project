@@ -1,0 +1,126 @@
+<odoo>
+    <!-- <template id="loans_static" name="loans">
+        <t t-call="website.layout">
+            <div class="container">
+            
+                <form action="/test/path" method="post" data-success_page="/thanks" class="s_website_form form-horizontal container-fluid mt32" >  
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>  
+                    <div class="form-group form-field o_website_form_required_custom">    
+                        <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>   
+                        <div class="col-md-7 col-sm-8">       
+                            <input type="text" class="form-control o_website_form_input" name="name" required=""/>   
+                        </div>
+                    </div>  
+                     <div class="form-group form-field o_website_form_required_custom">    
+                        <label class="col-md-3 col-sm-4 control-label" for="name">Mobile No.</label>   
+                        <div class="col-md-7 col-sm-8">       
+                            <input type="text" class="form-control o_website_form_input" name="mobile_no" required=""/>   
+                        </div>
+                    </div> 
+                    <div class="form-group form-field o_website_form_required_custom">    
+                        <label class="col-md-3 col-sm-4 control-label" for="name">Email</label>   
+                        <div class="col-md-7 col-sm-8">       
+                            <input type="text" class="form-control o_website_form_input" name="email" required=""/>   
+                        </div>
+                    </div>
+                    <div class="form-group form-field o_website_form_required_custom">    
+                        <label class="col-md-3 col-sm-4 control-label" for="name">Loan Type</label>   
+                        <div class="col-md-7 col-sm-8">       
+                            <input type="text" class="form-control o_website_form_input" name="loan_type_id" required=""/>   
+                        </div>
+                    </div>  
+                    <div class="form-group form-field o_website_form_required_custom">    
+                        <label class="col-md-3 col-sm-4 control-label" for="name">Currency</label>   
+                        <div class="col-md-7 col-sm-8">       
+                            <input type="text" class="form-control o_website_form_input" name="currency_id" required=""/>   
+                        </div>
+                    </div> 
+                    <div class="form-group form-field o_website_form_required_custom">    
+                        <label class="col-md-3 col-sm-4 control-label" for="name">Amount</label>   
+                        <div class="col-md-7 col-sm-8">       
+                            <input type="text" class="form-control o_website_form_input" name="amount" required=""/>   
+                        </div>
+                    </div>         
+                    <div class="form-group"> 
+                        <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7"> 
+                            <span id='submit' class="btn btn-primary btn-lg o_website_form_send">Submit</span> 
+                            <span id="o_website_form_result"></span> 
+                        </div> 
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template> -->
+
+    <template id="loans_static" name="loan Apply">
+        <t t-call="website.layout">
+            <div id="warp">
+                <div class="oe_structure">
+                    <div class="container">
+                       <label>Loan Apply Form</label>
+                        <form role="form" action="/create/webloanapply" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form-group">
+                                <lable for="name" class="control-lable">Name</lable>
+                                <input type="text"  name="name" t-att-value="name" id="name" class="form-control" placeholder="e.g. john Demo" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <lable for="email" class="control-lable">Email</lable>
+                                <input type="email"  name="email" t-att-value="email" id="email" class="form-control" placeholder="john@odoo.com" required="required"/>
+                            </div>
+                             <div class="form-group">
+                                <lable for="mobile_no" class="control-lable">Mobile No.</lable>
+                                <input type="mobile_no"  name="mobile_no" t-att-value="mobile_no" id="mobile_no" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <lable for="loan_type_id" class="control-lable">Loan Type</lable>
+                                <!-- <input type="selection"  name="loan_type_id" t-att-value="loan_type_id" id="loan_type_id" class="form-control" required="required"/> -->
+                                <select name='loan_type_id' class='control-label link-style'>
+                                    <t t-foreach='loan_type_id' t-as='loan_type'>
+                                        <option t-esc='loan_type.name' t-att-value='loan_type.id'/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="clearfix oe_login_buttons">
+                                <button type="apply" class="btn btn-primary pull-left">Apply</button>   
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>        
+    </template>
+
+
+    <record id="user_thanks" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">/User-thank-you</field>
+        <field name="website_published">True</field>
+        <field name="key">loansystem.user_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="loansystem.user_thanks">
+                <t t-call="website.layout">
+                  <div id="wrap">
+                    <div class="container">
+                        <h1>Thanks!</h1>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="alert alert-success" role="status">
+                                    The Login has been Created successfully.
+                                </div>
+                                <p>
+                                    Visit estate Module At ANy Time
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </t>
+            </t>
+        </field>
+    </record>
+
+    
+</odoo>
+

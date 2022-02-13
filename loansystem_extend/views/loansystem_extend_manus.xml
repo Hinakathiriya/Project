@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<record model="ir.actions.act_window" id="action_loan_installment">
+			<field name="name">Loan Installment</field>
+			<field name="res_model">loan.installment</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Loan Installment" id="loan_installment" parent="loansystem.menu_loan_tracking_system_root" action="action_loan_installment"/>
+	</data>
+</odoo>

@@ -7,3 +7,4 @@ class LoanType(models.Model):
 
     name = fields.Char()
     description = fields.Text()
+    interest_rate = fields.Integer()
