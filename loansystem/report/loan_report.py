@@ -3,7 +3,7 @@ from odoo import models, fields, tools
 class LoanReport(models.Model):
     _name = 'loan.report'
     _description = 'Loan Report'
-    _auto = False # Dont create the table in database
+    _auto = False 
     _rec_name = 'id'
 
     id = fields.Integer()
@@ -16,7 +16,7 @@ class LoanReport(models.Model):
             ('done','Done')
         ],default='new')
     applicant_apply_id = fields.Many2one('applicant.apply')
-    loan_type_id = fields.Many2one('estate.property_type')
+    loan_type_id = fields.Many2one('loan.type')
 
 
     # def _select(self):

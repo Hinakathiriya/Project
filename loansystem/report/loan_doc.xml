@@ -5,22 +5,23 @@
             <strong>Loan Details </strong>
             <h1><span t-field="o.name"/></h1>
             <t t-foreach="o.loan_type_id" t-as="loan_type">
-                <span class="badge badge-success" t-field="loan_type.name"/>
-            </t>
-            <div>
-                <!-- <table class="table table-sm o_main_table">
+                <span class="badge badge-success" t-field="loan_type.loan_name"/>
+                <span class="badge badge-success" t-field="loan_type.interest_rate"/>
+            </t>            
+            <!-- <div>
+                <table class="table table-sm o_main_table">
                     <tr>
-                        <th>Apply by</th>
+                        <th>Name</th>
                         <th>Amount</th>
                     </tr>
-                    <t t-foreach="o.applicant_apply_id" t-as="applicant_apply">
+                    <t t-foreach="o.applicant_apply_id" t-as="applicant">
                         <tr>
-                            <td><span t-field="applicant_apply.name"/></td>
-                            <td><span t-field="applicant_apply.amount"/></td>
+                            <td><span t-field="applicant.applicant_name"/></td>
+                            <td><span t-field="applicant.amount"/></td>
                         </tr>
                     </t>
-                </table> -->
-            </div>
+                </table>
+            </div> -->
         </div>
     </template>
 </odoo>

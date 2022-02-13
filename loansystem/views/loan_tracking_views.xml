@@ -6,7 +6,7 @@
         <field name="model">loan.type</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="loan_name"/>
                 <field name="description"/>
             </tree>
         </field>
@@ -20,7 +20,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
+                            <field name="loan_name"/>
                             <field name="description"/>
                             <field name="interest_rate"/>
                         </group>
@@ -36,10 +36,14 @@
         <field name="model">documents.upload</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="adhar_card"/>
-                <field name="pan_card"/>
-                <field name="votersid_card"/>
-                <field name="Driving_license"/>
+                <field name="adhar_card" filename="doc_name"/>
+                <field name="doc_name" invisible="1"/>
+                <field name="pan_card" filename="p_name"/>
+                <field name="p_name" invisible="1"/>
+                <field name="votersid_card" filename="v_name"/>
+                <field name="v_name" invisible="1"/>
+                <field name="Driving_license" filename="d_name"/>
+                <field name="d_name" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -52,12 +56,16 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="adhar_card"/>
-                            <field name="pan_card"/>
+                            <field name="adhar_card" filename="doc_name"/>
+                            <field name="doc_name" invisible="1"/>
+                            <field name="pan_card" filename="p_name"/>
+                            <field name="p_name" invisible="1"/>
                         </group>
                          <group>
-                            <field name="votersid_card"/>
-                            <field name="Driving_license"/>
+                            <field name="votersid_card" filename="v_name"/>
+                            <field name="v_name" invisible="1"/>
+                            <field name="Driving_license" filename="d_name"/>
+                            <field name="d_name" invisible="1"/>
                         </group>
                     </group>
                 </sheet>
@@ -71,7 +79,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="applicant_name"/>
                 <field name="loan_type_id"/>
                 <field name="amount"/>
                 <field name="currency_id"/>
@@ -103,7 +111,7 @@
                                 </div>
                             </t>
                             <div class="o_kanban_details">
-                                <strong><field name="name"/></strong>
+                                <strong><field name="applicant_name"/></strong>
                                 <ul>
                                     <li><field name="loan_type_id"/></li>
                                     <li><field name="amount"/></li>
@@ -122,7 +130,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <calendar string="Apply Date" date_start="apply_date" color="id">
-                <field name="name"/>
+                <field name="applicant_name"/>
             </calendar>
         </field>
     </record>
@@ -144,7 +152,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <pivot string="Loan type">
-                <field name="name" type="row"/>
+                <field name="applicant_name" type="row"/>
                 <field name="loan_type_id" type="col"/>
             </pivot>
         </field>
@@ -175,7 +183,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name" string="Name"/>
+                            <field name="applicant_name" string=" Applicant Name"/>
                             <field name="mobile_no" string="Mobile No."/>
                         </group>
                         <group>
@@ -229,7 +237,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
+                <field name="applicant_name"/>
                 <field name="email"/>
                 <field name="amount"/>
                 <field name="state"/>

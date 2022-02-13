@@ -12,31 +12,17 @@ class ApplicantApply(models.Model):
     # _sql_constraints = [('Positiv Amount', 'check(amount>0)', 'Enter positive value')]
 
 
-    # @api.depends('amount', 'rate')
-    # def _get_duration(self):
-    #     for record in self:
-    #         if record.approve_date and record.apply_date:
-    #             diff = record.amount - record.rate
-    #             record.duration = diff.days
-    #         else:
-    #             record.duration = 1
-
-    # def _set_duration(self):
-    #     for record in self:
-    #         record.approve_date = record.apply_date + relativedelta(days=record.duration)
-
+   
     @api.depends('amount', 'rate')
     def _compute_amount(self):
         for record in self:
-            record.total= record.amount * record.rate/100
-            # record.al_total = record.total + record.amount
-            # record.al_total = record.amount    
+            record.total= record.amount + record.amount * record.rate/100
+        
+    # def _inverse_amount(self):
+    #     for record in self:
+    #         record.amount = record.rate = record.total / 2
 
-    def _inverse_amount(self):
-        for record in self:
-            record.amount = record.rate = record.total / 2
-
-    name = fields.Char(string="Name", default="Unknown", required=True)
+    applicant_name = fields.Char(string="Name", default="Unknown", required=True)
     mobile_no = fields.Integer()
     email = fields.Char()
     loan_type_id = fields.Many2one('loan.type',string="Loan Type",required=False)
@@ -48,7 +34,7 @@ class ApplicantApply(models.Model):
     # amount = fields.Float()
     is_interest_payable = fields.Boolean()
     interest_mode = fields.Char(default='Flat',readonly=True)
-    duration = fields.Integer()
+    duration = fields.Char(default='Monthly',readonly=True)
     rate = fields.Integer(default=10,readonly=True)
     state = fields.Selection([
             ('new','New'),
@@ -59,7 +45,7 @@ class ApplicantApply(models.Model):
             ('done','Done')
         ],default='new')
     document_ids = fields.One2many('documents.upload','applicant_apply_id')
-    total = fields.Float(compute=_compute_amount,inverse=_inverse_amount)
+    total = fields.Float(compute=_compute_amount)
     currency_id = fields.Many2one('res.currency', string='Currency', store=True, readonly=False)
 
     @api.constrains('amount')
