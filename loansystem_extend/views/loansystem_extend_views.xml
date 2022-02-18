@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>   
-
-       
-        <!-- <record id="applicant_form" model="ir.ui.view">
+        <record id="applicant_form" model="ir.ui.view">
             <field name="name">Applicant Apply Inherited</field>
             <field name="model">applicant.apply</field>
             <field name="inherit_id" ref="loansystem.applicant_apply_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='documents_upload']" position="attributes">
-                    <attribute name="string">Loan Installment</attribute>
-                </xpath>
-                <xpath expr="//page[@name='documents_upload']/group/field[@name='document_ids']" position="attributes">
-                    <attribute name="nolabel">1</attribute>
-                </xpath>
-                <xpath expr="//page[@name='documents_upload']" position="after">
+                <notebook>
                     <page name="loan_installment" string="Loan Installment">
+                        <!-- <field name="interest_rate"/>
                         <field name="emi"/>
+                        <field name="total"/> -->
                     </page>
-                </xpath>
+                </notebook>
             </field>
-        </record> -->
+        </record>
 
         <record id="loan_installment_tree" model="ir.ui.view">
             <field name="name">Loan Installment Inherited</field>
             <field name="model">loan.installment</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
+                    <field name="employee_id"/>
                 </tree>
             </field>
         </record>
@@ -40,13 +34,13 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="name"/>
+                                <field name="employee_id"/>
                             </group>
                         </group>
                         <notebook>
                             <page name="loan_installment" string="Loan Installment">
                               <group>
-                                  <field name="interest_amount" string="Interest Amount"/>
+                                  <field name="interest_rate" string="Interest Rate"/>
                                   <field name="emi"/>
                                   <field name="total"/>
                               </group>

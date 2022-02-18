@@ -74,21 +74,7 @@
     </record>
 
    <!-- Loan Request Form -->
-    <record id="applicany_apply_tree" model="ir.ui.view">
-        <field name="name">Applicant Apply</field>
-        <field name="model">applicant.apply</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="applicant_name"/>
-                <field name="loan_type_id"/>
-                <field name="amount"/>
-                <field name="currency_id"/>
-            </tree>
-        </field>
-    </record>
-
-
-    <!-- Kanban view -->
+     <!-- Kanban view -->
     <record id="estate_property_kanban" model="ir.ui.view">
         <field name="name">Applicant Apply Kanban</field>
         <field name="model">applicant.apply</field>
@@ -111,7 +97,7 @@
                                 </div>
                             </t>
                             <div class="o_kanban_details">
-                                <strong><field name="applicant_name"/></strong>
+                                <strong><field name="employee_id"/></strong>
                                 <ul>
                                     <li><field name="loan_type_id"/></li>
                                     <li><field name="amount"/></li>
@@ -124,16 +110,43 @@
         </field>
     </record>
 
+    <record id="applicany_apply_tree" model="ir.ui.view">
+        <field name="name">Applicant Apply</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="loan_type_id"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+            </tree>
+        </field>
+    </record>
+
     <!-- Calender view -->
      <record id="applicant_apply_calendar" model="ir.ui.view">
         <field name="name">Applicant Apply Calendar</field>
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <calendar string="Apply Date" date_start="apply_date" color="id">
-                <field name="applicant_name"/>
+                <field name="employee_id"/>
             </calendar>
         </field>
     </record>
+
+    <record id="applicany_apply_tree" model="ir.ui.view">
+        <field name="name">Applicant Apply</field>
+        <field name="model">applicant.apply</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="loan_type_id"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+            </tree>
+        </field>
+    </record>
+
 
     <!-- Graph view -->
      <record id="applicant_apply_graph" model="ir.ui.view">
@@ -152,7 +165,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <pivot string="Loan type">
-                <field name="applicant_name" type="row"/>
+                <field name="employee_id" type="row"/>
                 <field name="loan_type_id" type="col"/>
             </pivot>
         </field>
@@ -175,7 +188,7 @@
                 <header>
                     <button name="action_apply" type="object" string="Apply" attrs="{'invisible': [('state','=', 'apply')]}" class="oe_highlight"/>
                     <button name="action_approved" type="object" string="Approved" attrs="{'invisible': [('state','=', 'approved')]}" class="oe_highlight"/>
-                    <button name="action_cancel" states="draft,apply,approved," string="Cancel" type="object" />
+                    <button name="action_cancel" states="draft,apply,approved" string="Cancel" type="object" />
                     <button name="action_draft" states="cancel" string="Draft" type="object" />
                     <button name="action_done" type="object" string="Lock" states="approved"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,Apply,approved,done"/>
@@ -183,7 +196,8 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="applicant_name" string=" Applicant Name"/>
+                            <field name="employee_id"/>
+                            <!-- <field name="applicant_name" string=" Applicant Name"/> -->
                             <field name="mobile_no" string="Mobile No."/>
                         </group>
                         <group>
@@ -226,6 +240,15 @@
                                 </tree>
                             </field>
                         </page>
+                         <!-- <page string="Proof">
+                            <field name="loan_installment_ids">
+                                <tree>
+                                    <field name="interest_rate"/>
+                                    <field name="emi"/>
+                                    <field name="total"/>
+                                </tree>
+                            </field>
+                        </page> -->
                     </notebook>
                 </sheet>
             </form>
@@ -237,7 +260,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <search>
-                <field name="applicant_name"/>
+                <field name="employee_id"/>
                 <field name="email"/>
                 <field name="amount"/>
                 <field name="state"/>

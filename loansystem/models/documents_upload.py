@@ -14,3 +14,4 @@ class DocumentsUpload(models.Model):
     Driving_license = fields.Binary(string="Driving License")
     d_name = fields.Char()
     applicant_apply_id = fields.Many2one('applicant.apply')
+    

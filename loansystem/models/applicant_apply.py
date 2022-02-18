@@ -18,23 +18,26 @@ class ApplicantApply(models.Model):
         for record in self:
             record.total= record.amount + record.amount * record.rate/100
         
-    # def _inverse_amount(self):
-    #     for record in self:
-    #         record.amount = record.rate = record.total / 2
-
-    applicant_name = fields.Char(string="Name", default="Unknown", required=True)
-    mobile_no = fields.Integer()
+    employee_id = fields.Many2one('hr.employee', string="User Name",required=True)   
+    # applicant_name = fields.Char(string="Name", default="Unknown", required=True)
+    mobile_no = fields.Char()
     email = fields.Char()
-    loan_type_id = fields.Many2one('loan.type',string="Loan Type",required=False)
+    loan_type_id = fields.Many2one('loan.type',string="Loan Type")
     apply_date = fields.Date()
     approve_date = fields.Date()
     image = fields.Image()
     currency_id = fields.Many2one('res.currency')
     amount = fields.Monetary(currency_field='currency_id')
-    # amount = fields.Float()
     is_interest_payable = fields.Boolean()
-    interest_mode = fields.Char(default='Flat',readonly=True)
-    duration = fields.Char(default='Monthly',readonly=True)
+    interest_mode = fields.Selection([
+            ('flat','Flat'),
+            ('floating','Floating')
+        ])
+    duration = fields.Selection([
+            ('weekly','Weekly'),
+            ('monthly','Monthly'),
+            ('Yearly','Yearly')
+        ])
     rate = fields.Integer(default=10,readonly=True)
     state = fields.Selection([
             ('new','New'),
@@ -48,6 +51,17 @@ class ApplicantApply(models.Model):
     total = fields.Float(compute=_compute_amount)
     currency_id = fields.Many2one('res.currency', string='Currency', store=True, readonly=False)
 
+    # @api.onchange('employee_id')
+    # def _onchange_garden(self):
+    #     for record in self:
+    #         if record.employee_id:
+    #             record.email = 
+    #             record.garden_orientation = 'north'
+    #         else:
+    #             record.garden_area = 0
+    #             record.garden_orientation = None
+   
+   
     @api.constrains('amount')
     def _check_amount(self):
         for record in self:
@@ -57,18 +71,20 @@ class ApplicantApply(models.Model):
 
     def action_apply(self):
         for record in self:
+            if record.state == 'cancel':
+                raise UserError("If Once You have apply than it's not cancel")
             record.state = 'apply'
     
     def action_cancel(self):
         for record in self:
-            if record.state == 'apply':
-                raise UserError("If Once You have apply than it's not cancel")
+            if record.state == 'approved':
+                raise UserError("If Once You have cancel than it's not approved")
             record.state = 'cancel'
 
     def action_approved(self):
          for record in self:
             if record.state == 'cancel':
-                raise UserError("approved loan can not be cancel")
+                raise UserError("once loan is approved than it's not be cancel")
             record.state = 'approved'
     
     def action_draft(self):
@@ -77,8 +93,10 @@ class ApplicantApply(models.Model):
         
       
     def action_done(self):
-        for record in self:
-            record.state = 'done'
+            for record in self:
+                if record.state == 'cancel':
+                    raise UserError("once loan is done than it's not be cancel")
+                record.state = 'done'
 
 
 
