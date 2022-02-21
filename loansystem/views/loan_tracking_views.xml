@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <!-- Loan Type Form -->
     <record id="loan_type_tree" model="ir.ui.view">
         <field name="name">Loan Type</field>
@@ -73,6 +74,8 @@
         </field>
     </record>
 
+    
+
    <!-- Loan Request Form -->
      <!-- Kanban view -->
     <record id="estate_property_kanban" model="ir.ui.view">
@@ -97,10 +100,11 @@
                                 </div>
                             </t>
                             <div class="o_kanban_details">
-                                <strong><field name="employee_id"/></strong>
+                                <strong><field name="applicant_name"/></strong>
                                 <ul>
                                     <li><field name="loan_type_id"/></li>
                                     <li><field name="amount"/></li>
+                                    <li><field name="state"/></li>
                                 </ul>
                             </div>
                         </div>
@@ -115,7 +119,8 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="employee_id"/>
+                <field name="applicant_name"/>
+                <field name="state"/>
                 <field name="loan_type_id"/>
                 <field name="amount"/>
                 <field name="currency_id"/>
@@ -129,7 +134,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <calendar string="Apply Date" date_start="apply_date" color="id">
-                <field name="employee_id"/>
+                <field name="applicant_name"/>
             </calendar>
         </field>
     </record>
@@ -139,7 +144,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="employee_id"/>
+                <field name="applicant_name"/>
                 <field name="loan_type_id"/>
                 <field name="amount"/>
                 <field name="currency_id"/>
@@ -165,7 +170,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <pivot string="Loan type">
-                <field name="employee_id" type="row"/>
+                <field name="applicant_name" type="row"/>
                 <field name="loan_type_id" type="col"/>
             </pivot>
         </field>
@@ -190,14 +195,13 @@
                     <button name="action_approved" type="object" string="Approved" attrs="{'invisible': [('state','=', 'approved')]}" class="oe_highlight"/>
                     <button name="action_cancel" states="draft,apply,approved" string="Cancel" type="object" />
                     <button name="action_draft" states="cancel" string="Draft" type="object" />
-                    <button name="action_done" type="object" string="Lock" states="approved"/>
+                    <button name="action_done" type="object" string="Lock" attrs="{'invisible': [('state','=', 'done'),('state','=','apply')]}"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,Apply,approved,done"/>
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="employee_id"/>
-                            <!-- <field name="applicant_name" string=" Applicant Name"/> -->
+                            <field name="applicant_name" string=" Applicant Name"/>
                             <field name="mobile_no" string="Mobile No."/>
                         </group>
                         <group>
@@ -209,6 +213,7 @@
                             <field name="approve_date"/>
                         </group>
                         <group>
+                            <field name="state"/>
                             <field name="image" widget="image" class="oe_avatar"/>
                         </group>
                     </group>
@@ -240,15 +245,16 @@
                                 </tree>
                             </field>
                         </page>
-                         <!-- <page string="Proof">
+                        <page string="Loan Installment">
                             <field name="loan_installment_ids">
-                                <tree>
+                                <tree editable="True">
+                                    <!-- <field name="applicant_apply_id"/> -->
                                     <field name="interest_rate"/>
                                     <field name="emi"/>
                                     <field name="total"/>
                                 </tree>
                             </field>
-                        </page> -->
+                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -260,7 +266,7 @@
         <field name="model">applicant.apply</field>
         <field name="arch" type="xml">
             <search>
-                <field name="employee_id"/>
+                <field name="applicant_name"/>
                 <field name="email"/>
                 <field name="amount"/>
                 <field name="state"/>
@@ -271,6 +277,37 @@
                     <filter string="Losn Type" name="loan_type_id" context="{'group_by': 'loan_type_id'}"/>
                 </group>
             </search>
+        </field>
+    </record>
+
+
+    <!-- Loan Installment Form -->
+    <record id="loan_installment_tree" model="ir.ui.view">
+        <field name="name">Loan Installment</field>
+        <field name="model">loan.installment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="interest_rate"/>
+                <field name="emi"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="loan_installment_form" model="ir.ui.view">
+        <field name="name">Loan Installment</field>
+        <field name="model">loan.installment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="interest_rate"/>
+                            <field name="emi"/>
+                            <field name="total"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
     

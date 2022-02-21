@@ -17,6 +17,3 @@ class LoanReport(models.Model):
         ],default='new')
     applicant_apply_id = fields.Many2one('applicant.apply')
     loan_type_id = fields.Many2one('loan.type')
-
-
-  

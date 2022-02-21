@@ -1,35 +1,61 @@
 <odoo>
     <template id="loans_static" name="loan Apply">
         <t t-call="website.layout">
-            <div id="warp">
+            <div id="warp m-2">
                 <div class="oe_structure">
                     <div class="container">
                         <h4 style="text-align:center"><strong>Loan Apply Form</strong></h4>
                         <form role="form" action="/create/webloanapply" method="POST">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <div class="form-group">
-                                <lable for="employee_id" class="control-lable">Name</lable>
-                                <input type="text"  name="employee_id" t-att-value="employee_id" id="employee_id" class="form-control" placeholder="e.g. john Demo" required="required"/>
+                                <lable for="applicant_name" class="control-lable">Name</lable>
+                                <div class="col-md-6">
+                                    <input type="text"  name="applicant_name" t-att-value="applicant_name" id="applicant_name" class="form-control" placeholder="e.g. john Demo" required="required"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <lable for="email" class="control-lable">Email</lable>
-                                <input type="email"  name="email" t-att-value="email" id="email" class="form-control" placeholder="john@odoo.com" required="required"/>
+                                <div class="col-md-6">
+                                    <input type="email"  name="email" t-att-value="email" id="email" class="form-control" placeholder="john@odoo.com" required="required"/>
+                                </div>
                             </div>
                              <div class="form-group">
                                 <lable for="mobile_no" class="control-lable">Mobile No.</lable>
-                                <input type="mobile_no"  name="mobile_no" t-att-value="mobile_no" id="mobile_no" class="form-control" required="required"/>
+                                <div>
+                                    <input type="mobile_no"  name="mobile_no" t-att-value="mobile_no" id="mobile_no" class="form-control" required="required"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <lable for="apply_date" class="control-lable">Apply Date.</lable>
+                                <div class="col-md-6">
+                                    <input type="date"  name="apply_date" t-att-value="apply_date" id="apply_date" class="form-control" required="required"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <lable for="amount" class="control-lable">Amount</lable>
-                                <input type="amount"  name="amount" t-att-value="amount" id="amount" class="form-control" required="required"/>
+                                <div class="col-md-6">
+                                    <input type="amount"  name="amount" t-att-value="amount" id="amount" class="form-control" required="required"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <lable for="loan_type_id" class="control-lable">Loan Type</lable>
-                                <select name='loan_type_id' class='form-control link-style'>
-                                    <t t-foreach='loan_res' t-as='loantype'>
-                                        <option t-out='loan_name' t-att-value='loan_type_id'/>
-                                    </t>
-                                </select>
+                                <div class="col-md-6">
+                                    <select name='loan_type_id' class='form-control link-style'>
+                                        <t t-foreach='loan_res' t-as='loantype'>
+                                            <option t-out='loan_name' t-att-value='loan_type_id'/>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                 <lable for="duration" class="control-lable">Duration</lable>
+                                 <div class="col-md-6">
+                                    <select name="duration" class="form-control" id="duration">
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="Yearly">Yearly</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="clearfix oe_login_buttons">
                                 <button type="apply" class="btn btn-primary pull-left">Apply</button>   
@@ -41,7 +67,7 @@
         </t>        
     </template>
 
-
+<!-- 
     <record id="user_thanks" model="website.page">
         <field name="name">Thanks</field>
         <field name="type">qweb</field>
@@ -69,7 +95,35 @@
                 </t>
             </t>
         </field>
-    </record>
+    </record> -->
+
+    <template id="loan_details">
+        <div t-call="website.layout">
+            <div class="container carousel-inner">
+                <div class="carousel-item active d-flex">
+                    <t t-foreach="ln" t-as="l">
+                        <div class="col-xs-3 col-sm-3 col-md-3 m-3">
+                            <div class="card align-items-center" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <t t-out="l.applicant_name" />
+                                    </h5>
+                                    <p class="card-text">
+                                        Loan Details:
+                                        <t t-out="l.state" />
+                                        ,
+                                        <t t-out="l.amount" />
+                                        ,
+                                        <t t-out="l.rate" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
 
     
 </odoo>

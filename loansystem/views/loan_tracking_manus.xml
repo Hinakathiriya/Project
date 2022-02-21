@@ -16,8 +16,15 @@
     <record id="real_loan_tracking_system_applicant_apply_action" model="ir.actions.act_window">
         <field name="name">Loan Request</field>
         <field name="res_model">applicant.apply</field>
-        <field name="view_mode">tree,form,kanban,calendar,graph,pivot,gantt</field>
+        <field name="view_mode">kanban,tree,form,calendar,graph,pivot,gantt</field>
         <field name="context">{'search_default_state':'new'}</field>
+    </record>
+
+    <record id="real_loan_tracking_system_loan_installment_action" model="ir.actions.act_window">
+        <field name="name">Loan Installment</field>
+        <field name="res_model">loan.installment</field>
+        <field name="view_mode">tree,form</field>
+        
     </record>
 
 
@@ -40,4 +47,9 @@
         </menuitem>
     </menuitem>
 
+    <menuitem id="menu_loan_tracking_system_root" name="Loan Tracking System">
+        <menuitem id="menu_loan_tracking_loan_installment" name="Loan Installment">
+            <menuitem id="menu_loan_tracking_system_loan_installment_action" action="real_loan_tracking_system_loan_installment_action"/>
+        </menuitem>
+    </menuitem>
 </odoo>
