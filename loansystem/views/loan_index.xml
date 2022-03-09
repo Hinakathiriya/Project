@@ -106,15 +106,21 @@
                             <div class="card align-items-center" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <t t-out="l.applicant_name" />
+                                        <t t-esc="l.applicant_name" />
                                     </h5>
                                     <p class="card-text">
                                         Loan Details:
-                                        <t t-out="l.state" />
+                                        State:
+                                        <span t-esc="l.state" />
                                         ,
-                                        <t t-out="l.amount" />
+                                        <!-- Loan Type:
+                                        <t t-esc="l.loan_name" />
+                                        , -->
+                                        Amount:
+                                        <span t-esc="l.amount" />
                                         ,
-                                        <t t-out="l.rate" />
+                                        Rate:
+                                        <span t-esc="l.rate" />
                                     </p>
                                 </div>
                             </div>

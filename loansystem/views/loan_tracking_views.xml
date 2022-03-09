@@ -213,7 +213,7 @@
                             <field name="approve_date"/>
                         </group>
                         <group>
-                            <field name="state"/>
+                            <!-- <field name="state"/> -->
                             <field name="image" widget="image" class="oe_avatar"/>
                         </group>
                     </group>
@@ -248,9 +248,9 @@
                         <page string="Loan Installment">
                             <field name="loan_installment_ids">
                                 <tree editable="True">
-                                    <!-- <field name="applicant_apply_id"/> -->
                                     <field name="interest_rate"/>
                                     <field name="emi"/>
+                                    <field name="emi_month"/>
                                     <field name="total"/>
                                 </tree>
                             </field>
@@ -287,8 +287,9 @@
         <field name="model">loan.installment</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="interest_rate"/>
                 <field name="emi"/>
+                <field name="interest_rate"/>
+                <field name="emi_month"/>
             </tree>
         </field>
     </record>
@@ -301,8 +302,10 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="interest_rate"/>
                             <field name="emi"/>
+                            <field name="applicant_apply_id"/>
+                            <field name="interest_rate"/>
+                            <field name="emi_month"/>
                             <field name="total"/>
                         </group>
                     </group>

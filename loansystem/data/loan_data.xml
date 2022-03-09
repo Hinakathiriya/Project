@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="0">
+        <!-- <record model="ir.sequence" id="seq_account_loan">
+            <field name="name">Loan Number</field>
+            <field name="code">loan.number</field>
+            <field name="prefix">LOAN/</field>
+            <field name="padding">4</field>
+            <field name="suffix">/%(year)s</field>
+        </record> -->
         <!-- loan Menu -->
         <record id="menu_loan" model="website.menu">
             <field name="name">loan</field>
