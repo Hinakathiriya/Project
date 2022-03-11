@@ -196,9 +196,13 @@
                     <button name="action_cancel" states="draft,apply,approved" string="Cancel" type="object" />
                     <button name="action_draft" states="cancel" string="Draft" type="object" />
                     <button name="action_done" type="object" string="Lock" attrs="{'invisible': [('state','=', 'done'),('state','=','apply')]}"/>
+                    <button name="action_send_mail" string="Send by Email" type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,Apply,approved,done"/>
                 </header>
                 <sheet>
+                    <group>
+                        <h1><field name="ref_seq" readonly="1"/></h1>
+                    </group>
                     <group>
                         <group>
                             <field name="applicant_name" string=" Applicant Name"/>
@@ -206,6 +210,7 @@
                         </group>
                         <group>
                             <field name="email"/>
+                            <field name="partner_id"/>
                             <field name="loan_type_id" widget="many2one_tags"/>
                         </group>
                         <group>
@@ -257,6 +262,11 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- <field name="activity_ids"/> -->
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>

@@ -2,7 +2,7 @@
     'name': 'Loan Tracking System',
     'category' : 'Sales',
     'application' : True,
-    'depends' : ['base','website'],
+    'depends' : ['base','website','mail'],
     'data': [
         'security/loan_security.xml',
         'security/ir.model.access.csv',
@@ -14,6 +14,7 @@
         'report/loan_deatail.xml',
         'report/loan_doc.xml',
         'data/loan_data.xml',
+        'data/mail_template.xml',
 
     ],
 
